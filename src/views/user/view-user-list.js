@@ -21,13 +21,15 @@ const json_header = [
 class ViewUserList extends React.Component{
     constructor(props){
         super(props)
-        this.state ={
-            rows: []
-        }
+        this.handleClick = this.handleClick.bind(this)
+    }
+
+    handleClick(){
+
     }
 
     render(){
-        
+
         const { users, posts, albums, photos } = this.props
 
         return (
@@ -57,7 +59,7 @@ class ViewUserList extends React.Component{
                             Object.assign(element, {photo:result.length});
                         }
 
-                        return <CustomTableRows key={i} rows={ element }/>
+                        return <CustomTableRows onClick={ ()=>  } onDelete={()=> alert(`Delete ${element.name}`)} key={i} rows={ element }/>
                     })}
                 </CustomTable>
             </React.Fragment>

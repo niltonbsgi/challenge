@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './custom-table.scss';
 
-const CustomTableRows = ({rows}) => {
+const CustomTableRows = ({rows, onDelete, onClick}) => {
     return(
-        <tr className="hover_row">
+        <tr className="hover_row" onClick={ onClick }>
             <td>{ rows.username }</td>
             <td>{ rows.name }</td>
             <td className="shaw-link">{ rows.email }</td>
@@ -14,18 +14,21 @@ const CustomTableRows = ({rows}) => {
             <td className="shaw-link">{ rows.post }</td>
             <td className="shaw-link">{ rows.album }</td>
             <td>{ rows.photo }</td>
-            <td><i className="far fa-trash-alt style-icons"></i></td>
+            <td onClick={ onDelete }><i className="far fa-trash-alt style-icons"></i></td>
         </tr>
     )
-
 }
 
 CustomTableRows.propTypes = {
-    Rows: PropTypes.object
+    Rows: PropTypes.object,
+    onDelete: PropTypes.func,
+    onClick: PropTypes.func
 };
 
 CustomTableRows.defaultProps = {
-    Rows: {}
+    Rows: {},
+    onDelete: ()=>{},
+    onClick: ()=>{}
 };
 
 export default CustomTableRows;
