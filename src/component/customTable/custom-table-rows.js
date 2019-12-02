@@ -11,13 +11,13 @@ const CustomTableRows = ({rows}) => {
             <td className="shaw-link">{ rows.address.city }</td>
             <td>{ 1 }</td>
             <td>{ 1 }</td>
-            <td>{ 1 }</td>
-            <td>{ 1 }</td>
-            <td>{ 1 }</td>
-            <td><i class="far fa-trash-alt style-icons"></i></td>
-        </tr>        
-    ) 
-    
+            <td className="shaw-link">{ rows.post }</td>
+            <td className="shaw-link">{ rows.album }</td>
+            <td>{ rows.photo }</td>
+            <td><i className="far fa-trash-alt style-icons"></i></td>
+        </tr>
+    )
+
 }
 
 CustomTableRows.propTypes = {

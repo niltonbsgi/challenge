@@ -1,35 +1,68 @@
+export const url_request = {
+    users: "https://jsonplaceholder.typicode.com/users",
+    posts: "https://jsonplaceholder.typicode.com/posts",
+    album: "https://jsonplaceholder.typicode.com/albums",
+    photos: "https://jsonplaceholder.typicode.com/photos"
+}
+export const cases = {
+    USER_LIST: 'USER_LIST',
+    POST_LIST: 'POST_LIST',
+    ALBUM_LIST: 'ALBUM_LIST',
+    PHOTO_LIST: 'PHOTO_LIST',
+    error: 'ERROR'
+}
+
 const INITIAL_STATE = {
     users: [],
+    posts: [],
+    albums: [],
+    photos: [],
     success: false,
     errorMessage: '',
     error : false
 }
 
-export const url_request = {
-    users: "https://jsonplaceholder.typicode.com/users"
-}
-export const cases = {
-    user_list: 'USER_LIST',
-    error: 'ERROR'
-}
-
 export default (state = INITIAL_STATE, action) => {
     switch(action.type) {
-        
-        case cases.user_list: 
+
+        case cases.USER_LIST:
             return {
                 ...state,
                 users: action.payload.data,
                 success: true,
                 errorMessage: '',
-                error: false 
-            } 
+                error: false
+            }
+        case cases.POST_LIST:
+            return {
+                ...state,
+                posts: action.payload.data,
+                success: true,
+                errorMessage: '',
+                error: false
+            }
+        case cases.ALBUM_LIST:
+            return {
+                ...state,
+                albums: action.payload.data,
+                success: true,
+                errorMessage: '',
+                error: false
+            }
+        case cases.PHOTO_LIST:
+            return {
+                ...state,
+                photos: action.payload.data,
+                success: true,
+                errorMessage: '',
+                error: false
+            }    
         case cases.error:
             return {
                 ...state,
                 success: false,
                 errorMessage: '',
-                error: true 
+                error: true
             }
         default:
             return state

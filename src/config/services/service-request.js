@@ -1,9 +1,15 @@
 import axios from 'axios';
 
-export function axios_fetch(method, urlWithParams, body) {
+export const http_verbs = {
+    GET: 'GET',
+    POST:'POST',
+    PUT:'PUT',
+    DELETE:'DELETE'
+}
 
+export const axios_fetch = (method, urlWithParams, body) => {
     switch (method) {
-        case 'PUT': {
+        case http_verbs.PUT: {
             return (
                 axios.put(
                     urlWithParams,
@@ -11,14 +17,14 @@ export function axios_fetch(method, urlWithParams, body) {
                 )
             )
         }
-        case 'POST': {
+        case http_verbs.POST: {
             return (
                 axios.post(urlWithParams,
                     JSON.stringify(body)
                 )
             )
         }
-        case 'DELETE':
+        case http_verbs.DELETE:
             return (
                 axios.delete(urlWithParams)
             )
