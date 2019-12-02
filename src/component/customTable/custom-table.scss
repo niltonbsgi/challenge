@@ -1,0 +1,35 @@
+.custom-table-grid {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 20px;    
+}
+
+td, th {
+  border: none;
+  text-align: left;
+  padding: 18px;
+}  
+
+i.far {
+  display: none;
+}
+tr:hover i.far {
+  display: inline-block;
+}
+
+.hover_row:hover {
+background-color: #dddddd;
+} 
+
+tr:nth-child(even) {
+  background-color: #F9F8F8;
+}
+
+.shaw-link{
+  color: #00cc99;
+}
+
+.shaw-link:hover {
+  cursor:pointer;
+}
