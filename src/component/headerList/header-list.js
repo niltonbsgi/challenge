@@ -3,7 +3,7 @@ import './header-list.scss';
 
 const HeaderList = () => {
     return (
-        <section>
+        <section className="custom-section">
             <div className="display-mode" >
                 <i className="fas fa-puzzle-piece style-icons fa-3x"></i>
             </div>
@@ -21,7 +21,7 @@ const HeaderList = () => {
             </div>
 
             <div className="display-mode" >
-                <i className="fas fa-puzzle-piece style-icons fa-3x"></i>
+                <i className="fas fa-map-signs style-icons fa-3x"></i>              
             </div>
             <div className="display-mode _additional-padding" >
                 <label className="display-block">Route</label>

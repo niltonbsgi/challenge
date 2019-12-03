@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import HeaderList from '../../component/headerList/header-list';
 import HeaderTitle from '../../component/headerList/header-title';
 import CustomTable from '../../component/customTable/custom-table';
@@ -24,7 +25,12 @@ class ViewUserList extends React.Component{
         this.handleClick = this.handleClick.bind(this)
     }
 
-    handleClick(){
+    handleClick(e, id){
+
+        console.log(e.target.id)
+        if( e.target.id !=="3" && e.target.id !=="4" && e.target.id !=="10" ){
+            this.props.history.push(`/user_form/${id}`)
+        }
 
     }
 
@@ -59,7 +65,14 @@ class ViewUserList extends React.Component{
                             Object.assign(element, {photo:result.length});
                         }
 
-                        return <CustomTableRows onClick={ ()=>  } onDelete={()=> alert(`Delete ${element.name}`)} key={i} rows={ element }/>
+                        return( 
+                            <CustomTableRows 
+                                onClick={ (e)=> this.handleClick(e, element.id) } 
+                                onDelete={()=> alert(`Delete ${element.name}`)} 
+                                key={i} 
+                                rows={ element }
+                            />
+                        )
                     })}
                 </CustomTable>
             </React.Fragment>
@@ -67,4 +80,4 @@ class ViewUserList extends React.Component{
     }
 }
 
-export default ViewUserList;
+export default withRouter(ViewUserList);

@@ -1,0 +1,17 @@
+.container {
+    display: grid;
+    grid-template-columns: 12% 40% 40% 15%;
+}
+.block-conteiner-one {
+    grid-column: 2;
+}
+
+.block-conteiner-two {
+    grid-column: 3;
+    
+}
+
+.display-checkbox{
+    display:inline-block;
+    margin-top: 10px;
+}
