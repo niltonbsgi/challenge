@@ -9,6 +9,7 @@ export const cases = {
     POST_LIST: 'POST_LIST',
     ALBUM_LIST: 'ALBUM_LIST',
     PHOTO_LIST: 'PHOTO_LIST',
+    POST_POST: 'POST_POST',
     error: 'ERROR'
 }
 
@@ -56,12 +57,19 @@ export default (state = INITIAL_STATE, action) => {
                 success: true,
                 errorMessage: '',
                 error: false
-            }    
-        case cases.error:
+            }
+        case cases.POST_POST:debugger
+            return {
+                ...state,
+                success: true,
+                errorMessage: '',
+                error: false
+            }
+        case cases.error:debugger
             return {
                 ...state,
                 success: false,
-                errorMessage: '',
+                errorMessage: action.payload.message,
                 error: true
             }
         default:

@@ -22,12 +22,12 @@ const json_header = [
 class ViewUserList extends React.Component{
     constructor(props){
         super(props)
+        this.state={};
         this.handleClick = this.handleClick.bind(this)
     }
 
     handleClick(e, id){
 
-        console.log(e.target.id)
         if( e.target.id !=="3" && e.target.id !=="4" && e.target.id !=="10" ){
             this.props.history.push(`/user_form/${id}`)
         }

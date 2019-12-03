@@ -2,13 +2,44 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import ViewUserDetail from './view-user-detail';
-//import { _Get_User_List, _Get_Post_By_User_List, _Get_Album_By_User_List, _Get_Photo_By_Album_List } from './redux/action-user';
+import { _Post_User } from './redux/action-user';
 import { url_request } from './redux/reducer-user';
 
+var user_json = {
+    "name": "Jao",
+    "username": "Bret",
+    "email": "Sincere@april.biz",
+    "address": {
+      "street": "Kulas Light",
+      "suite": "Apt. 556",
+      "city": "Gwenborough",
+      "zipcode": "92998-3874",
+      "geo": {
+        "lat": "-37.3159",
+        "lng": "81.1496"
+      }
+    },
+    "phone": "1-770-736-8031 x56445",
+    "website": "hildegard.org",
+    "company": {
+      "name": "Teste",
+      "catchPhrase": "Multi-layered client-server neural-net",
+      "bs": "harness real-time e-markets"
+    }
+  }
+
 const mapDispatchToProps = (dispatch) => {
+
     return {
-        onGetUserList: (url) => {
-         
+        onPostUser: (state) => {
+            user_json.username = state["Username"]
+            user_json.name = state["Name"]
+            user_json.email = state["Email"]
+            user_json.address.city = state["City"]
+
+            const promise = _Post_User(url_request.users, user_json);
+            dispatch(promise);
+            return promise;
         }
     }
 }
@@ -24,12 +55,8 @@ class ConteinerUserDetail extends React.Component{
         super(props)
     };
 
-    componentDidMount(){
-        
-    }
-    
     render(){
-        return <ViewUserDetail/>
+        return <ViewUserDetail {...this.props} {...this.state}/>
     }
 }
 
