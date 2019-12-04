@@ -77,7 +77,46 @@ export const  _Get_Photo_By_Album_List = (url) => {
     );
 };
 
-export const _Post_User = (url, body) => {debugger
+export function _Get_Ride_in_Group_List (url) {
+    return (
+        axios_fetch('', url)
+        .then(
+            (resp) => ({
+                type: cases.RIDE_IN_GROUP_POST,
+                payload: resp
+            }),
+            (err)=> ({
+                type: cases.error,
+                payload: err
+            }))
+        .catch( (err) => ({
+            type: cases.error,
+            payload: err
+        }) )
+    );
+};
+
+export function _Get_Days_of_Week_List (url) {
+    return (
+        axios_fetch('', url)
+        .then(
+            (resp) => ({
+                type: cases.DAYS_WEEK_LIST,
+                payload: resp
+            }),
+            (err)=> ({
+                type: cases.error,
+                payload: err
+            }))
+        .catch( (err) => ({
+            type: cases.error,
+            payload: err
+        }) )
+    );
+};
+
+
+export const _Post_User = (url, body) => {
     return (
         axios_fetch(http_verbs.POST, url, body)
         .then(

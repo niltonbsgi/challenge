@@ -20,7 +20,6 @@ const style = {
 }
 const HorizontalBar = () =>{
     return <div style={style.horizontalBar}><br/></div>
-
 }
 class ViewUserDetail extends React.Component{
     constructor(props){
@@ -39,14 +38,28 @@ class ViewUserDetail extends React.Component{
             Wed: false,
             Thu: false,
             Fri: false,
-            Sat: false,
-
+            Sat: false
         }
+
         this.handleChangeValue=this.handleChangeValue.bind(this)
     }
 
     handleChangeValue(target, value ){
         this.setState({...this.state, [target]: value})
+    }
+
+    componentDidMount(){
+        const { users, match } = this.props
+        var selecttedItem = users.filter(item => item.id.toString() === match.params.id )[0]
+        if(selecttedItem !== undefined)
+        {
+            this.setState({...this.state,
+                Username: selecttedItem.username,
+                Name: selecttedItem.name,
+                Email: selecttedItem.email,
+                City: selecttedItem.address.city,
+            })
+        }
     }
 
     render(){

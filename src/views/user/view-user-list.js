@@ -5,6 +5,7 @@ import HeaderTitle from '../../component/headerList/header-title';
 import CustomTable from '../../component/customTable/custom-table';
 import CustomTableRows from '../../component/customTable/custom-table-rows';
 
+const array_days = ["sun","mon","tue","wed","thu","fri","sat"]
 const json_header = [
     {name: "Username"},
     {name: "Name"},
@@ -18,12 +19,12 @@ const json_header = [
     {name: <a>&emsp;&emsp;</a>}
 ]
 
-
 class ViewUserList extends React.Component{
     constructor(props){
         super(props)
         this.state={};
         this.handleClick = this.handleClick.bind(this)
+        this.handleDaysOfWeek = this.handleDaysOfWeek.bind(this)
     }
 
     handleClick(e, id){
@@ -34,9 +35,41 @@ class ViewUserList extends React.Component{
 
     }
 
+    handleDaysOfWeek(daysWeek, element){
+
+        var EveryDay = 0
+        var Weekend = 0
+        var Days = ""
+        var item_row = ""
+        var result = daysWeek.filter(item => item.id === element.id )[0]
+
+        if (result !== undefined){
+
+            for (let index = 0; index < array_days.length; index++) {
+
+                let field =  result[array_days[index]] 
+                if(field !== ""){
+                    EveryDay++
+                    item_row += `${field},`
+                }else if(((field ==="sun")||(field ==="sat"))&&(Weekend<3)){
+                    Weekend++;
+                }
+            }
+        }
+
+        if(EveryDay===7)
+            item_row = "Every day"
+        else if(Weekend > 0)
+            item_row = "Weekends"
+        else if((EveryDay < 3) && (EveryDay > 1))
+            item_row = "Week days"
+
+        return item_row
+    }
+
     render(){
 
-        const { users, posts, albums, photos } = this.props
+        const { users, posts, albums, photos, daysWeek } = this.props
 
         return (
             <React.Fragment>
@@ -65,11 +98,15 @@ class ViewUserList extends React.Component{
                             Object.assign(element, {photo:result.length});
                         }
 
-                        return( 
-                            <CustomTableRows 
-                                onClick={ (e)=> this.handleClick(e, element.id) } 
-                                onDelete={()=> alert(`Delete ${element.name}`)} 
-                                key={i} 
+                        if (daysWeek.length > 0) {
+                            Object.assign(element, {daysOfWeek:this.handleDaysOfWeek(daysWeek, element)});
+                        }
+
+                        return(
+                            <CustomTableRows
+                                onClick={ (e)=> this.handleClick(e, element.id) }
+                                onDelete={()=> alert(`Delete ${element.name}`)}
+                                key={i}
                                 rows={ element }
                             />
                         )
