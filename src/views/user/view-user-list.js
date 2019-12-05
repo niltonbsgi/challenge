@@ -8,6 +8,7 @@ import CustomTableRows from '../../component/customTable/custom-table-rows';
 const geo_location = "https://www.google.com/maps/search/?api=1&query=@lat,@long"
 const mail_link = "mailto: @email"
 const array_days = ["sun","mon","tue","wed","thu","fri","sat"]
+//const user_column = ["name","email","city","rideInGroup","daysOfWeek","post","album","photo"]
 const json_header = [
     {name: "Username"},
     {name: "Name"},
@@ -46,7 +47,6 @@ class ViewUserList extends React.Component{
 
         var EveryDay = 0
         var Weekend = 0
-        var Days = ""
         var item_row = ""
         var result = daysWeek.filter(item => item.id === element.id )[0]
 
@@ -138,13 +138,9 @@ class ViewUserList extends React.Component{
                 <HeaderTitle onChange={(e)=> {
 
                     let result = users.filter((item) => {
-                        if (JSON.stringify(item["username"]).toLowerCase().search(e.target.value.toLowerCase()) !== -1)
-                            return true
-                        else
-                            return false
+                        return (JSON.stringify(item["username"]).toLowerCase().search(e.target.value.toLowerCase()) !== -1)
                     })
                     this.setState({...this.state, loca_user_list: result })
-
                 }} >
                     <h1>Users</h1>
                 </HeaderTitle>
