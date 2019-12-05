@@ -24,11 +24,15 @@ const json_header = [
 class ViewUserList extends React.Component{
     constructor(props){
         super(props)
+        this.state = {
+            loca_user_list: undefined
+        }
         this.state={};
         this.handleClick = this.handleClick.bind(this)
         this.handleDaysOfWeek = this.handleDaysOfWeek.bind(this)
         this.handleRideInGroup = this.handleRideInGroup.bind(this)
         this.handleRow = this.handleRow.bind(this)
+        this.handleUserRow = this.handleUserRow.bind(this)
     }
 
     handleClick(e, id){
@@ -50,7 +54,7 @@ class ViewUserList extends React.Component{
 
             for (let index = 0; index < array_days.length; index++) {
 
-                let field =  result[array_days[index]] 
+                let field =  result[array_days[index]]
                 if(field !== ""){
                     EveryDay++
                     item_row += `${field},`
@@ -70,7 +74,7 @@ class ViewUserList extends React.Component{
         return item_row
     }
 
-    handleRideInGroup(rideInGroup, element){debugger
+    handleRideInGroup(rideInGroup, element){
         var ride = rideInGroup.filter(item => item.id === element.id)[0] || {}
         return (ride.always? "Always": (ride.sometimes? "Sometimes": "Never"))
     }
@@ -108,10 +112,20 @@ class ViewUserList extends React.Component{
         let latitud  = element.address.geo.lat || ""
         let longitud = element.address.geo.lng || ""
         if (longitud !== "" && longitud!== undefined){
-            element.address.city = <a target="_blank" className="highlight" href={ geo_location.replace("@lat",latitud).replace("@long",longitud) }>{element.address.city}</a>
+            let city_link = <a target="_blank" className="highlight" href={ geo_location.replace("@lat",latitud).replace("@long",longitud) }>{element.address.city}</a>
+            Object.assign(element, {city_link: city_link});
         }
 
-        element.email = <a target="_blank" className="highlight" href={ mail_link.replace("@email", element.email) }>{element.email}</a>
+        let email_link = <a target="_blank" className="highlight" href={ mail_link.replace("@email", element.email) }>{element.email}</a>
+        Object.assign(element, {email_link: email_link});
+    }
+
+    handleUserRow(){
+        if(this.state.loca_user_list !== undefined){
+            return this.state.loca_user_list
+        }else{
+            return this.props.users
+        }
     }
 
     render(){
@@ -121,11 +135,21 @@ class ViewUserList extends React.Component{
         return (
             <React.Fragment>
                 <HeaderList/>
-                <HeaderTitle>
+                <HeaderTitle onChange={(e)=> {
+
+                    let result = users.filter((item) => {
+                        if (JSON.stringify(item["username"]).toLowerCase().search(e.target.value.toLowerCase()) !== -1)
+                            return true
+                        else
+                            return false
+                    })
+                    this.setState({...this.state, loca_user_list: result })
+
+                }} >
                     <h1>Users</h1>
                 </HeaderTitle>
                 <CustomTable Header={ json_header } >
-                    {users.map((element, i)=>{
+                    { this.handleUserRow().map((element, i)=>{
 
                         { this.handleRow(element) }
 

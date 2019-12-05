@@ -7,8 +7,8 @@ const CustomTableRows = ({rows, onDelete, onClick}) => {
         <tr className="hover_row" onClick={ onClick } >
             <td id="1">{ rows.username }</td>
             <td id="2">{ rows.name }</td>
-            <td id="3" className="highlight">{ rows.email }</td>
-            <td id="4" className="highlight">{ rows.address.city }</td>
+            <td id="3" className="highlight">{ rows.email_link }</td>
+            <td id="4" className="highlight">{ rows.city_link }</td>
             <td id="5" >{ rows.rideInGroup }</td>
             <td id="6" >{ rows.daysOfWeek }</td>
             <td id="7" className="highlight">{ rows.post }</td>
