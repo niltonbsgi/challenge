@@ -5,6 +5,8 @@ import HeaderTitle from '../../component/headerList/header-title';
 import CustomTable from '../../component/customTable/custom-table';
 import CustomTableRows from '../../component/customTable/custom-table-rows';
 
+const geo_location = "https://www.google.com/maps/search/?api=1&query=@lat,@long"
+const mail_link = "mailto: @email"
 const array_days = ["sun","mon","tue","wed","thu","fri","sat"]
 const json_header = [
     {name: "Username"},
@@ -102,6 +104,14 @@ class ViewUserList extends React.Component{
         if(rideInGroup.length > 0){
             Object.assign(element, {rideInGroup:this.handleRideInGroup(rideInGroup, element)});
         }
+
+        let latitud  = element.address.geo.lat || ""
+        let longitud = element.address.geo.lng || ""
+        if (longitud !== "" && longitud!== undefined){
+            element.address.city = <a target="_blank" className="highlight" href={ geo_location.replace("@lat",latitud).replace("@long",longitud) }>{element.address.city}</a>
+        }
+
+        element.email = <a target="_blank" className="highlight" href={ mail_link.replace("@email", element.email) }>{element.email}</a>
     }
 
     render(){

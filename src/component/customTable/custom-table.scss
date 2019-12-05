@@ -26,10 +26,11 @@ tr:nth-child(even) {
   background-color: #F9F8F8;
 }
 
-.shaw-link{
+.highlight{
   color: #00cc99;
+  text-decoration:none;
 }
 
-.shaw-link:hover {
+.highlight:hover {
   cursor:pointer;
 }
