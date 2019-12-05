@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import Page from 'react-page-loading'
 import ViewUserList from './view-user-list';
 import {
     _Get_User_List,
@@ -65,11 +66,15 @@ class ConteinerUserList extends React.Component{
                 this.props.onGetAlbumList(url_request.album)
                 this.props.onGetPhotosList(url_request.photos)
                 this.props.onGetDaysOfWeekList(url_request.days_of_week)
-               // this.props.onGetRideInGroupList(url_request.ride_in_group)
+                this.props.onGetRideInGroupList(url_request.ride_in_group)
             })
     }
     render(){
-        return <ViewUserList {...this.props} {...this.state}/>
+        return (
+            <Page loader={"bar"} color={"#00cc99"} size={6}>
+                <ViewUserList {...this.props} {...this.state}/>
+            </Page>
+        )
     }
 }
 

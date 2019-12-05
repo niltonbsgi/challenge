@@ -25,14 +25,14 @@ class ViewUserList extends React.Component{
         this.state={};
         this.handleClick = this.handleClick.bind(this)
         this.handleDaysOfWeek = this.handleDaysOfWeek.bind(this)
+        this.handleRideInGroup = this.handleRideInGroup.bind(this)
     }
 
     handleClick(e, id){
-
-        if( e.target.id !=="3" && e.target.id !=="4" && e.target.id !=="10" ){
+debugger
+        if( e.target.id !=="3" && e.target.id !=="4" && (e.target.id !=="10" && e.target.id !=="") ){
             this.props.history.push(`/user_form/${id}`)
         }
-
     }
 
     handleDaysOfWeek(daysWeek, element){
@@ -67,9 +67,14 @@ class ViewUserList extends React.Component{
         return item_row
     }
 
+    handleRideInGroup(rideInGroup, element){debugger
+        var ride = rideInGroup.filter(item => item.id === element.id)[0] || {}
+        return (ride.always? "Always": (ride.sometimes? "Sometimes": "Never"))
+    }
+
     render(){
 
-        const { users, posts, albums, photos, daysWeek } = this.props
+        const { users, posts, albums, photos, daysWeek, rideInGroup } = this.props
 
         return (
             <React.Fragment>
@@ -100,6 +105,10 @@ class ViewUserList extends React.Component{
 
                         if (daysWeek.length > 0) {
                             Object.assign(element, {daysOfWeek:this.handleDaysOfWeek(daysWeek, element)});
+                        }
+
+                        if(rideInGroup.length > 0){debugger
+                            Object.assign(element, {rideInGroup:this.handleRideInGroup(rideInGroup, element)});
                         }
 
                         return(

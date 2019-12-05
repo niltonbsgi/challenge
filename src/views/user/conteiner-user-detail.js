@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import Page from 'react-page-loading'
 import ViewUserDetail from './view-user-detail';
 import { _Post_User } from './redux/action-user';
 import { url_request } from './redux/reducer-user';
@@ -31,7 +32,7 @@ var user_json = {
 const mapDispatchToProps = (dispatch) => {
 
   return {
-    onPostUser: (state) => {
+    onPostUser: (state) => {debugger
       user_json.username = state["Username"]
       user_json.name = state["Name"]
       user_json.email = state["Email"]
@@ -55,7 +56,11 @@ class ConteinerUserDetail extends React.Component{
   };
 
   render(){
-    return <ViewUserDetail {...this.props} {...this.state}/>
+    return (
+      <Page loader={"bar"} color={"#00cc99"} size={6}>
+        <ViewUserDetail {...this.props} {...this.state}/>
+      </Page>
+    )
   }
 }
 

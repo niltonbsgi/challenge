@@ -15,7 +15,6 @@ const style = {
         borderBottom:'solid 00.09em',
         borderColor: '#D3D3D3',
         marginLeft: '10%'
-
     }
 }
 const HorizontalBar = () =>{
@@ -49,15 +48,28 @@ class ViewUserDetail extends React.Component{
     }
 
     componentDidMount(){
-        const { users, match } = this.props
+        const { users, match, daysWeek, rideInGroup } = this.props
+
         var selecttedItem = users.filter(item => item.id.toString() === match.params.id )[0]
         if(selecttedItem !== undefined)
-        {
+        {debugger
+            var days = daysWeek.filter(item => item.id.toString() === match.params.id)[0] || {}
+            var ride = rideInGroup.filter(item => item.id.toString() === match.params.id)[0] || {}
             this.setState({...this.state,
                 Username: selecttedItem.username,
                 Name: selecttedItem.name,
                 Email: selecttedItem.email,
                 City: selecttedItem.address.city,
+                Sun: (days.sun !== ""),
+                Mon: (days.mon !== ""),
+                Tue: (days.tue !== ""),
+                Wed: (days.wed !== ""),
+                Thu: (days.thu !== ""),
+                Fri: (days.fri !== ""),
+                Sat: (days.sat !== ""),
+                Aways: ride.always,
+                Sometimes: ride.sometimes,
+                Never: ride.neve,
             })
         }
     }

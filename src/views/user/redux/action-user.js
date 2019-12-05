@@ -82,7 +82,7 @@ export function _Get_Ride_in_Group_List (url) {
         axios_fetch('', url)
         .then(
             (resp) => ({
-                type: cases.RIDE_IN_GROUP_POST,
+                type: cases.RIDE_IN_GROUP_LIST,
                 payload: resp
             }),
             (err)=> ({
