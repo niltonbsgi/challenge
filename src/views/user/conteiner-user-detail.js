@@ -32,7 +32,7 @@ var user_json = {
 const mapDispatchToProps = (dispatch) => {
 
   return {
-    onPostUser: (state) => {debugger
+    onPostUser: (state) => {
       user_json.username = state["Username"]
       user_json.name = state["Name"]
       user_json.email = state["Email"]

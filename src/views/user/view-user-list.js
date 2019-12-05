@@ -26,10 +26,11 @@ class ViewUserList extends React.Component{
         this.handleClick = this.handleClick.bind(this)
         this.handleDaysOfWeek = this.handleDaysOfWeek.bind(this)
         this.handleRideInGroup = this.handleRideInGroup.bind(this)
+        this.handleRow = this.handleRow.bind(this)
     }
 
     handleClick(e, id){
-debugger
+
         if( e.target.id !=="3" && e.target.id !=="4" && (e.target.id !=="10" && e.target.id !=="") ){
             this.props.history.push(`/user_form/${id}`)
         }
@@ -72,9 +73,40 @@ debugger
         return (ride.always? "Always": (ride.sometimes? "Sometimes": "Never"))
     }
 
+    handleRow(element){
+
+        const { posts, albums, photos, daysWeek, rideInGroup } = this.props
+
+        if (posts.length > 0) {
+            var result = posts.filter(item => item.userId === element.id )
+            Object.assign(element, {post:result.length});
+        }
+
+        if (albums.length > 0) {
+            var result = albums.filter(item => item.userId === element.id )
+            Object.assign(element, {album:result.length});
+        }
+
+        if ((photos.length > 0) && (albums.length > 0))  {
+
+            var album = albums.filter(item => item.userId === element.id )[0] || []
+
+            var result = photos.filter(item => item.albumId === album.id )
+            Object.assign(element, {photo:result.length});
+        }
+
+        if (daysWeek.length > 0) {
+            Object.assign(element, {daysOfWeek:this.handleDaysOfWeek(daysWeek, element)});
+        }
+
+        if(rideInGroup.length > 0){
+            Object.assign(element, {rideInGroup:this.handleRideInGroup(rideInGroup, element)});
+        }
+    }
+
     render(){
 
-        const { users, posts, albums, photos, daysWeek, rideInGroup } = this.props
+        const { users } = this.props
 
         return (
             <React.Fragment>
@@ -85,31 +117,7 @@ debugger
                 <CustomTable Header={ json_header } >
                     {users.map((element, i)=>{
 
-                        if (posts.length > 0) {
-                            var result = posts.filter(item => item.userId === element.id )
-                            Object.assign(element, {post:result.length});
-                        }
-
-                        if (albums.length > 0) {
-                            var result = albums.filter(item => item.userId === element.id )
-                            Object.assign(element, {album:result.length});
-                        }
-
-                        if ((photos.length > 0) && (albums.length > 0))  {
-
-                            var album = albums.filter(item => item.userId === element.id )[0] || []
-
-                            var result = photos.filter(item => item.albumId === album.id )
-                            Object.assign(element, {photo:result.length});
-                        }
-
-                        if (daysWeek.length > 0) {
-                            Object.assign(element, {daysOfWeek:this.handleDaysOfWeek(daysWeek, element)});
-                        }
-
-                        if(rideInGroup.length > 0){debugger
-                            Object.assign(element, {rideInGroup:this.handleRideInGroup(rideInGroup, element)});
-                        }
+                        { this.handleRow(element) }
 
                         return(
                             <CustomTableRows

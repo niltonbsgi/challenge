@@ -52,7 +52,7 @@ class ViewUserDetail extends React.Component{
 
         var selecttedItem = users.filter(item => item.id.toString() === match.params.id )[0]
         if(selecttedItem !== undefined)
-        {debugger
+        {
             var days = daysWeek.filter(item => item.id.toString() === match.params.id)[0] || {}
             var ride = rideInGroup.filter(item => item.id.toString() === match.params.id)[0] || {}
             this.setState({...this.state,
