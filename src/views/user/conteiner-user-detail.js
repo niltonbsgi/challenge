@@ -3,8 +3,15 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Page from 'react-page-loading'
 import ViewUserDetail from './view-user-detail';
-import { _Post_User } from './redux/action-user';
+import { _Post_User, _Post_Ride_in_Group } from './redux/action-user';
 import { url_request } from './redux/reducer-user';
+
+var ride_json ={
+  "id": 0,
+  "always": false,
+  "sometimes": false,
+  "neve": false
+}
 
 var user_json = {
   "name": "Jao",
@@ -33,6 +40,7 @@ const mapDispatchToProps = (dispatch) => {
 
   return {
     onPostUser: (state) => {
+
       user_json.username = state["Username"]
       user_json.name = state["Name"]
       user_json.email = state["Email"]
@@ -41,7 +49,19 @@ const mapDispatchToProps = (dispatch) => {
       const promise = _Post_User(url_request.users, user_json);
       dispatch(promise);
       return promise;
-    }
+    },
+    onPostRideInGroup: (state) => {debugger
+
+      ride_json.always = state["always"]
+      ride_json.sometimes = state["sometimes"]
+      ride_json.neve = state["neve"]
+      ride_json.id = state["id"]
+
+      const promise = _Post_Ride_in_Group(url_request.ride_in_group, ride_json);
+      dispatch(promise);
+      return promise;
+    },
+
   }
 }
 

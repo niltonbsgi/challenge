@@ -25,6 +25,7 @@ class ViewUserDetail extends React.Component{
     constructor(props){
         super(props)
         this.state = {
+            id: undefined,
             isActive: false,
             Username: "",
             Name: "",
@@ -59,17 +60,18 @@ class ViewUserDetail extends React.Component{
             var days = daysWeek.filter(item => item.id.toString() === match.params.id)[0] || {}
             var ride = rideInGroup.filter(item => item.id.toString() === match.params.id)[0] || {}
             this.setState({...this.state,
+                id: match.params.id,
                 Username: selecttedItem.username,
                 Name: selecttedItem.name,
                 Email: selecttedItem.email,
                 City: selecttedItem.address.city,
-                Sun: (days.sun !== ""),
-                Mon: (days.mon !== ""),
-                Tue: (days.tue !== ""),
-                Wed: (days.wed !== ""),
-                Thu: (days.thu !== ""),
-                Fri: (days.fri !== ""),
-                Sat: (days.sat !== ""),
+                Sun: (days.sun !== "" && days.sun !== undefined),
+                Mon: (days.mon !== "" && days.mon !== undefined),
+                Tue: (days.tue !== "" && days.tue !== undefined),
+                Wed: (days.wed !== "" && days.wed !== undefined),
+                Thu: (days.thu !== "" && days.thu !== undefined),
+                Fri: (days.fri !== "" && days.fri !== undefined),
+                Sat: (days.sat !== "" && days.sat !== undefined),
                 Aways: ride.always,
                 Sometimes: ride.sometimes,
                 Never: ride.neve,
@@ -106,6 +108,15 @@ class ViewUserDetail extends React.Component{
                             <CustomButton onClick={ (e)=> {
                                 e.preventDefault();
                                 this.setState({...this.state, isActive: true})
+
+                                // this.props.onPostRideInGroup(this.state)
+                                //     .then(()=>{
+                                //         this.setState({...this.state, isActive: false})
+                                //     })
+                                //     .catch(()=>{
+                                //         this.setState({...this.state, isActive: false})
+                                //     })
+
                                 this.props.onPostUser(this.state)
                                     .then(()=>{
                                         this.setState({...this.state, isActive: true})

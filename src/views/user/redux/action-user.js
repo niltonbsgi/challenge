@@ -116,7 +116,27 @@ export function _Get_Days_of_Week_List (url) {
 };
 
 
-export const _Post_User = (url, body) => {
+export function _Post_User (url, body) {
+    return (
+        axios_fetch(http_verbs.POST, url, body)
+        .then(
+            (resp) => ({
+                type: cases.PHOTO_LIST,
+                payload: resp
+            }),
+            (err)=> ({
+                type: cases.error,
+                payload: err
+            }))
+        .catch( (err) => ({
+            type: cases.error,
+            payload: err
+        }) )
+    );
+};
+
+export function _Post_Ride_in_Group (url, body) {
+    debugger
     return (
         axios_fetch(http_verbs.POST, url, body)
         .then(
